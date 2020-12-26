@@ -2,15 +2,16 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
 import App from 'next/app';
 import React from 'react';
-import PropTypes from 'prop-types';
 import Head from 'next/head';
+import PropTypes from 'prop-types';
+
 import { theme } from '../lib/theme';
 
 import Header from '../components/Header';
 
 const propTypes = {
   Component: PropTypes.elementType.isRequired,
-  pageProps: PropTypes.objectOf(PropTypes.object).isRequired,
+  pageProps: PropTypes.object.isRequired, // eslint-disable-line
 };
 
 class MyApp extends App {
