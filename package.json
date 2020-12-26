@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "next",
+    "dev-express": "nodemon server/server.js --watch-server",
     "build": "next build",
     "start": "next start",
     "lint": "eslint '**/*.js' '**/*.jsx'"
@@ -11,6 +12,11 @@
   "dependencies": {
     "@material-ui/core": "4.11.0",
     "@material-ui/styles": "4.10.0",
+    "connect-mongo": "^3.2.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.11.8",
     "next": "^9.1.2",
     "prop-types": "15.7.2",
     "react": "^16.13.1",
@@ -26,6 +32,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "nodemon": "2.0.6",
     "prettier": "^2.2.1"
   }
 }
