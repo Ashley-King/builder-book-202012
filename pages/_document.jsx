@@ -17,7 +17,7 @@ class MyDocument extends Document {
           />
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Muli:300,400:latin"
+            href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400"
           />
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
           <link
@@ -62,7 +62,8 @@ class MyDocument extends Document {
         </Head>
         <body
           style={{
-            font: '16px Muli',
+            fontSize: '16px ',
+            fontFamily: 'Mulish, sans-serif',
             color: '#222',
             margin: '0px auto',
             fontWeight: '300',
