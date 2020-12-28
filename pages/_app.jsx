@@ -2,6 +2,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
 import App from 'next/app';
 import React from 'react';
+import Router from 'next/router';
+import NProgress from 'nprogress';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 
@@ -9,12 +11,28 @@ import { theme } from '../lib/theme';
 
 import Header from '../components/Header';
 
+Router.onRouteChangeStart = () => NProgress.start();
+Router.onRouteChangeComplete = () => NProgress.done();
+Router.onRouteChangeError = () => NProgress.done();
+
 const propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired, // eslint-disable-line
 };
 
 class MyApp extends App {
+  static async getInitialProps({ Component, ctx }) {
+    const pageProps = {};
+
+    if (Component.getInitialProps) {
+      Object.assign(pageProps, await Component.getInitialProps(ctx));
+    }
+
+    // console.log(pageProps);
+
+    return { pageProps };
+  }
+
   componentDidMount() {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
