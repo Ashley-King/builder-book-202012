@@ -68,7 +68,7 @@ function setupGoogle({ ROOT_URL, server }) {
   server.get(
     '/oauth2callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
-    (req, res) => {
+    (__, res) => {
       // if successful redirect user to indec
       res.redirect('/');
     },
