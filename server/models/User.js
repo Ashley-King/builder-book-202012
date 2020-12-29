@@ -4,7 +4,7 @@ const generateSlug = require('../utils/slugify');
 
 const { Schema } = mongoose;
 
-mongoose.set('userFindAndModify', false);
+mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlParser', true);
 
@@ -56,6 +56,7 @@ class UserClass {
       if (googleToken.accessToken) {
         modifier.access_token = googleToken.accessToken;
       }
+
       if (googleToken.refreshToken) {
         modifier.refresh_token = googleToken.refreshToken;
       }
@@ -63,14 +64,14 @@ class UserClass {
       if (_.isEmpty(modifier)) {
         return user;
       }
+
       await this.updateOne({ googleId }, { $set: modifier });
 
       return user;
     }
 
     const slug = await generateSlug(this, displayName);
-
-    const userCount = await this.find().countDocuments;
+    const userCount = await this.find().countDocuments();
 
     const newUser = await this.create({
       createdAt: new Date(),

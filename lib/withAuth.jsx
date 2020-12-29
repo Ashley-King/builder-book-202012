@@ -8,6 +8,18 @@ export default function withAuth(
   BaseComponent,
   { loginRequired = true, logoutRequired = false } = {},
 ) {
+  const propTypes = {
+    user: PropTypes.shape({
+      id: PropTypes.string,
+      isAdmin: PropTypes.bool,
+    }),
+    isFromServer: PropTypes.bool.isRequired,
+  };
+
+  const defaultProps = {
+    user: null,
+  };
+
   class App extends React.Component {
     static async getInitialProps(ctx) {
       const isFromServer = typeof window === 'undefined';
@@ -22,18 +34,22 @@ export default function withAuth(
       if (BaseComponent.getInitialProps) {
         Object.assign(props, (await BaseComponent.getInitialProps(ctx)) || {});
       }
+
       return props;
     }
 
     componentDidMount() {
       const { user, isFromServer } = this.props;
+
       if (isFromServer) {
         globalUser = user;
       }
+
       if (loginRequired && !logoutRequired && !user) {
-        Router.push('/public/login', '/login');
+        Router.push('/login');
         return;
       }
+
       if (logoutRequired && user) {
         Router.push('/');
       }
@@ -41,12 +57,15 @@ export default function withAuth(
 
     render() {
       const { user } = this.props;
+
       if (loginRequired && !logoutRequired && !user) {
         return null;
       }
+
       if (logoutRequired && user) {
         return null;
       }
+
       return (
         <>
           <BaseComponent {...this.props} />
@@ -54,20 +73,7 @@ export default function withAuth(
       );
     }
   }
-  const propTypes = {
-    user: PropTypes.shape({
-      id: PropTypes.string,
-      isAdmin: PropTypes.bool,
-    }),
-    isFromServer: PropTypes.bool.isRequired,
-  };
-
-  const defaultProps = {
-    user: null,
-  };
-
   App.propTypes = propTypes;
   App.defaultProps = defaultProps;
-
   return App;
 }
